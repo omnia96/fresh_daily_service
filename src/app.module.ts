@@ -10,9 +10,10 @@ import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './core/filters/allExceptions.filter';
+import { LifeModule } from './life/life.module';
 
 @Module({
-  imports: [CatsModule],
+  imports: [CatsModule, LifeModule],
   controllers: [AppController],
   providers: [
     AppService,
