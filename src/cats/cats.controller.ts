@@ -3,17 +3,22 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   HttpStatus,
   Param,
   Post,
   Res,
+  UseFilters,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { Cat } from './interface/cat.interface';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
+import { ForbiddenException } from '../core/exceptions/forbidden.exception';
+import { HttpExceptionFilter } from '../core/filters/httpException.filter';
 
 @Controller('cats')
+@UseFilters(new HttpExceptionFilter())
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -23,7 +28,9 @@ export class CatsController {
   }
 
   @Get()
+  @UseFilters(HttpExceptionFilter)
   async findAll(): Promise<Cat[]> {
+    throw new ForbiddenException();
     return this.catsService.findAll();
   }
 }
