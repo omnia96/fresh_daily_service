@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Res,
   UseFilters,
@@ -32,5 +33,9 @@ export class CatsController {
   async findAll(): Promise<Cat[]> {
     throw new ForbiddenException();
     return this.catsService.findAll();
+  }
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.catsService.findOne(id);
   }
 }
