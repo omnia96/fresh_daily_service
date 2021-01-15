@@ -92,6 +92,8 @@ export class HomeController {
             'https://icons.iconarchive.com/icons/blackvariant/button-ui-requests-12/512/MiPCSuite-icon.png',
         },
       ],
+      advertesPicture:
+        'https://ogre.natalie.mu/media/news/comic/2018/0420/cityhunter1.jpg?imwidth=750',
     };
   }
 }
