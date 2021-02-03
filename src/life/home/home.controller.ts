@@ -4,6 +4,8 @@ import { Controller, Get } from '@nestjs/common';
 export class HomeController {
   @Get()
   home() {
+    const defaultImage =
+      'https://ogre.natalie.mu/media/news/comic/2018/0420/cityhunter1.jpg?imwidth=750';
     return {
       banner: [
         {
@@ -92,8 +94,20 @@ export class HomeController {
             'https://icons.iconarchive.com/icons/blackvariant/button-ui-requests-12/512/MiPCSuite-icon.png',
         },
       ],
-      advertesPicture:
-        'https://ogre.natalie.mu/media/news/comic/2018/0420/cityhunter1.jpg?imwidth=750',
+      advertesPicture: defaultImage,
+      shopInfo: {
+        leaderImage:
+          'https://ogre.natalie.mu/media/news/comic/2018/0420/cityhunter1.jpg?imwidth=750',
+        leaderPhone: '18691791512',
+      },
+      recommend: [
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+        { id: 1, mallPrice: '100', price: '80', image: defaultImage },
+      ],
     };
   }
 }
