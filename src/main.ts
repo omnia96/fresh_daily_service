@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription('The cats API description')
     .setVersion('1.0')
     .addTag('cats')
+    .addBearerAuth()
     .build();
   app.enableCors({
     origin: '*',

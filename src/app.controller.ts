@@ -6,6 +6,9 @@ import {LocalAuthGuard} from "./auth/local-auth.guard";
 import {AuthService} from "./auth/auth.service";
 import {JwtStrategy} from "./auth/jwt.strategy";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
+import {Public} from "./auth/set-meta-data";
+import {request} from "express";
+import {ApiBearerAuth} from "@nestjs/swagger";
 
 @Controller()
 export class AppController {
@@ -18,13 +21,13 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Body() loginRequestBody: LoginRequestBody) {
-    console.log(loginRequestBody);
-    return this.authService.login(loginRequestBody);
+  async login(@Body() loginRequestBody: LoginRequestBody, @Request() request) {
+    return this.authService.login(request.user);
   }
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {

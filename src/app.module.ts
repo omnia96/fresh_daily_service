@@ -14,15 +14,21 @@ import { LifeModule } from './life/life.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
+import {RolesGuard} from "./roles/roles.guard";
+import { CaslModule } from './casl/casl.module';
 
 @Module({
-  imports: [CatsModule, LifeModule, AuthModule, UserModule],
+  imports: [CatsModule, LifeModule, AuthModule, UserModule, CaslModule],
   controllers: [AppController],
   providers: [
     AppService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     {
       provide: APP_FILTER,
