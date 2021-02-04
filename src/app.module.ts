@@ -8,15 +8,22 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './logger.middleware';
-import { APP_FILTER } from '@nestjs/core';
+import {APP_FILTER, APP_GUARD} from '@nestjs/core';
 import { AllExceptionsFilter } from './core/filters/allExceptions.filter';
 import { LifeModule } from './life/life.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 
 @Module({
-  imports: [CatsModule, LifeModule],
+  imports: [CatsModule, LifeModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
