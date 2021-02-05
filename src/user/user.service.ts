@@ -5,7 +5,7 @@ import {Role} from "../core/enums/role.enum";
 @Injectable()
 export class UserService {
   private readonly users: User[] = [
-    {id: 1, username: 'admin', password: '123456', roles: [Role.Admin]},
+    {id: 1, username: 'admin', password: 'qmAHdJ2p', roles: [Role.Admin]},
     {id: 2, username: 'user', password: '123456', roles: [Role.User]},
     {id: 3, username: 'maria', password: 'guess', roles: []},
   ];

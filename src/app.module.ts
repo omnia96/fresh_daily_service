@@ -15,10 +15,9 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {RolesGuard} from "./roles/roles.guard";
-import { CaslModule } from './casl/casl.module';
 
 @Module({
-  imports: [CatsModule, LifeModule, AuthModule, UserModule, CaslModule],
+  imports: [CatsModule, LifeModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [
     AppService,
