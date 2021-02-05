@@ -33,6 +33,7 @@ export class AuthService {
       access_token: this.jwtService.sign(payload)
     }
   }
+
   async encryption(password: string): Promise<string> {
     const key = (await promisify(scrypt)(this.pass, 'salt', 32)) as Buffer
     const cipher = createCipheriv("aes-256-ctr", key, this.iv)
@@ -51,5 +52,10 @@ export class AuthService {
       decipher.final(),
     ]);
     return decryptedText.toString();
+  }
+
+  async join(username: string, password: string) {
+    const passwordEncryption = await this.encryption(password)
+    return this.userService.create(username, passwordEncryption)
   }
 }

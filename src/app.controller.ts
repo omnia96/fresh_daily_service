@@ -1,14 +1,13 @@
-import {Controller, Get, Post, UseGuards, Request, Body, Req} from '@nestjs/common';
-import { AppService } from './app.service';
-import {AuthGuard} from "@nestjs/passport";
+import {Body, Controller, Get, Post, Request, UseGuards} from '@nestjs/common';
+import {AppService} from './app.service';
 import {LoginRequestBody} from "./auth/login-request-body";
 import {LocalAuthGuard} from "./auth/local-auth.guard";
 import {AuthService} from "./auth/auth.service";
-import {JwtStrategy} from "./auth/jwt.strategy";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {Public} from "./auth/set-meta-data";
-import {request} from "express";
 import {ApiBearerAuth} from "@nestjs/swagger";
+import {Roles} from "./core/decorators/roles.decorator";
+import {Role} from "./core/enums/role.enum";
 
 @Controller()
 export class AppController {
@@ -26,6 +25,12 @@ export class AppController {
   @Post('auth/login')
   async login(@Body() loginRequestBody: LoginRequestBody, @Request() request) {
     return this.authService.login(request.user);
+  }
+  @ApiBearerAuth()
+  @Roles(Role.Admin)
+  @Post('auth/join')
+  async registration(@Body() loginRequestBody: LoginRequestBody) {
+    return this.authService.join(loginRequestBody.username, loginRequestBody.password)
   }
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

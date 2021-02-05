@@ -15,9 +15,16 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {RolesGuard} from "./roles/roles.guard";
+import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
-  imports: [CatsModule, LifeModule, AuthModule, UserModule],
+  imports: [
+    CatsModule,
+    LifeModule,
+    AuthModule,
+    UserModule,
+    TypeOrmModule.forRoot(),
+  ],
   controllers: [AppController],
   providers: [
     AppService,
@@ -34,6 +41,7 @@ import {RolesGuard} from "./roles/roles.guard";
       useClass: AllExceptionsFilter,
     },
   ],
+  exports: []
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
