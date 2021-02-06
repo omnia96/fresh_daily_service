@@ -1,7 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
+import {Public} from "../../auth/set-meta-data";
 
 @Controller('home')
 export class HomeController {
+  @Public()
   @Get()
   home() {
     const defaultImage =
